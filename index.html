@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171323">
+<title>Comedy Guru</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#100e18;color:#fff;font-family:Arial,sans-serif;padding-bottom:85px}
+header{padding:22px 18px;background:#1c1729}
+.logo{font-size:25px;font-weight:900;color:#c49aff}
+.sub{color:#bdb2ca;font-size:12px;margin-top:5px}
+main{padding:18px;max-width:600px;margin:auto}
+.hero{padding:23px;border-radius:18px;background:linear-gradient(135deg,#56358c,#241b39);margin-bottom:20px}
+.hero h1{font-size:26px;margin:0 0 10px}
+p{line-height:1.5}
+.small{color:#c8bed5;font-size:13px}
+.card{background:#211c2c;border:1px solid #393047;padding:17px;border-radius:15px;margin:12px 0}
+h2{font-size:19px}
+h3{font-size:16px;margin:8px 0}
+button{background:#8053bc;color:white;border:0;border-radius:10px;padding:12px 15px;font-weight:bold;cursor:pointer}
+button:active{opacity:.7}
+.secondary{background:#393047}
+input,textarea,select{width:100%;background:#171323;border:1px solid #514363;color:white;padding:13px;border-radius:10px;margin:8px 0;font:inherit}
+textarea{min-height:115px;resize:vertical}
+nav{position:fixed;bottom:0;left:0;right:0;background:#211c2c;display:flex;justify-content:space-around;padding:12px 3px;z-index:5}
+nav button{background:transparent;padding:8px 5px;font-size:11px}
+nav button.active{color:#d4adff}
+.section{display:none}
+.section.active{display:block}
+.tag{color:#d1adff;font-size:12px}
+.lesson{cursor:pointer}
+.lesson p{margin-bottom:0}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">🎤 COMEDY GURU</div>
+ <div class="sub">LEARN • WRITE • PERFORM</div>
+</header>
+
+<main>
+<section id="home" class="section active">
+ <div class="hero">
+  <div class="tag">YOUR COMEDY JOURNEY STARTS HERE</div>
+  <h1>Welcome, Future Comedian! 🎭</h1>
+  <p>Observe the world. Find the funny side. Create your own comedy.</p>
+  <button onclick="show('learn')">Start Learning →</button>
+ </div>
+ <h2>Your Comedy Academy</h2>
+ <div class="card"><h3>📚 Learn Comedy</h3><p class="small">Learn from beginner to professional level.</p></div>
+ <div class="card"><h3>✍️ Write Your Jokes</h3><p class="small">Turn your daily observations into comedy.</p></div>
+ <div class="card"><h3>🧠 Train Your Brain</h3><p class="small">Develop funny thinking every day.</p></div>
+ <div class="card"><h3>🎤 Perform Comedy</h3><p class="small">Learn timing, stage presence and crowd work.</p></div>
+</section>
+
+<section id="learn" class="section">
+ <h2>📚 Comedy School</h2>
+ <p class="small">Start with the fundamentals.</p>
+ <div class="card lesson" onclick="lesson('Observation','Observation means noticing small details in everyday life that other people ignore.','Example: A student studies only one day before an exam. Why? Because the book suddenly becomes more interesting when the exam is tomorrow!')">
+ <span class="tag">LESSON 01</span><h3>Observation Skills</h3><p class="small">Find comedy in normal life.</p></div>
+ <div class="card lesson" onclick="lesson('Exaggeration','Exaggeration means making a normal situation unusually big or extreme.','Example: I was so hungry that even Google Maps showed me the nearest biryani instead of my home.')">
+ <span class="tag">LESSON 02</span><h3>Exaggeration</h3><p class="small">Make ordinary things extraordinary.</p></div>
+ <div class="card lesson" onclick="lesson('Contrast','Contrast means placing two opposite ideas together to create humour.','Example: My confidence is like a lion before the exam and like a mosquito after seeing the question paper.')">
+ <span class="tag">LESSON 03</span><h3>Contrast</h3><p class="small">Create humour using opposites.</p></div>
+ <div class="card lesson" onclick="lesson('Association','Association means connecting one idea to another unexpected idea.','Example: Exam → Result → Career → Marriage. In our house even an exam result becomes a marriage discussion!')">
+ <span class="tag">LESSON 04</span><h3>Association</h3><p class="small">Connect ideas creatively.</p></div>
+ <div id="lessonDetail" class="card" style="display:none">
+ <h2 id="lt"></h2><p id="ld"></p><h3>Example</h3><p id="le"></p>
+ </div>
+</section>
+
+<section id="write" class="section">
+ <h2>✍️ Joke Writing Studio</h2>
+ <p class="small">Write your original comedy material here.</p>
+ <input id="topic" placeholder="Your joke topic...">
+ <textarea id="joke" placeholder="Write your setup, punchline and funny ideas..."></textarea>
+ <button onclick="saveJoke()">Save My Joke</button>
+ <h3>📒 My Joke Book</h3>
+ <div id="jokes"></div>
+</section>
+
+<section id="words" class="section">
+ <h2>📖 Daily Vocabulary</h2>
+ <p class="small">Learn English words with Hinglish and Tenglish meanings.</p>
+ <div id="wordList"></div>
+</section>
+
+<section id="practice" class="section">
+ <h2>🧠 Daily Comedy Challenge</h2>
+ <div class="card">
+ <span class="tag">TODAY'S ASSIGNMENT</span>
+ <h3>A student studies one day before an exam.</h3>
+ <p>Write five funny angles using:</p>
+ <p>1. Exaggeration<br>2. Contrast<br>3. Association<br>4. Comparison<br>5. Unexpected twist</p>
+ <textarea id="answer" placeholder="Write your five funny angles..."></textarea>
+ <button onclick="localStorage.setItem('cgChallenge',document.getElementById('answer').value);alert('Challenge saved!')">Save Challenge</button>
+ </div>
+</section>
+</main>
+
+<nav>
+ <button class="active" onclick="show('home',this)">🏠<br>Home</button>
+ <button onclick="show('learn',this)">📚<br>Learn</button>
+ <button onclick="show('write',this)">✍️<br>Write</button>
+ <button onclick="show('words',this)">📖<br>Words</button>
+ <button onclick="show('practice',this)">🧠<br>Practice</button>
+</nav>
+
+<script>
+function show(id,btn){
+ document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+ if(btn)btn.classList.add('active');
+ if(id==='write')renderJokes();
+ if(id==='words')renderWords();
+ if(id==='practice')document.getElementById('answer').value=localStorage.getItem('cgChallenge')||'';
+ window.scrollTo(0,0);
+}
+function lesson(title,description,example){
+ document.getElementById('lessonDetail').style.display='block';
+ document.getElementById('lt').innerText=title;
+ document.getElementById('ld').innerText=description;
+ document.getElementById('le').innerText=example;
+}
+function saveJoke(){
+ let topic=document.getElementById('topic').value.trim();
+ let joke=document.getElementById('joke').value.trim();
+ if(!topic||!joke){alert('Write your topic and joke first!');return;}
+ let data=JSON.parse(localStorage.getItem('cgJokes')||'[]');
+ data.push({topic,joke});
+ localStorage.setItem('cgJokes',JSON.stringify(data));
+ document.getElementById('topic').value='';
+ document.getElementById('joke').value='';
+ renderJokes();
+ alert('Your joke has been saved!');
+}
+function renderJokes(){
+ let data=JSON.parse(localStorage.getItem('cgJokes')||'[]');
+ document.getElementById('jokes').innerHTML=data.length?data.map((x,i)=>`<div class="card"><h3>${escapeHTML(x.topic)}</h3><p>${escapeHTML(x.joke)}</p><button class="secondary" onclick="deleteJoke(${i})">Delete</button></div>`).join(''):'<p class="small">Your saved jokes will appear here.</p>';
+}
+function deleteJoke(i){
+ let data=JSON.parse(localStorage.getItem('cgJokes')||'[]');
+ data.splice(i,1);
+ localStorage.setItem('cgJokes',JSON.stringify(data));
+ renderJokes();
+}
+function escapeHTML(s){
+ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+const words=[
+ ['Observation','Gaur se dekhna','Observe cheyadam'],
+ ['Exaggeration','Baat ko badha-chadha kar bolna','Vishayanni athiga cheppadam'],
+ ['Contrast','Do opposite cheezon ka difference','Rendu vyatireka vishayala theda'],
+ ['Unexpected','Jiski umeed na ho','Anukoni vishayam'],
+ ['Awkward','Ajeeb ya uncomfortable','Ibbandikaramaina'],
+ ['Confidence','Atmavishwas','Atmavishwasam'],
+ ['Audience','Dekhne aur sunne wale log','Chuse mariyu vine prekshakulu'],
+ ['Punchline','Joke ka funny ending','Joke lo navvinche chivari line'],
+ ['Timing','Sahi waqt par bolna','Saraina samayamlo cheppadam'],
+ ['Creative','Naye ideas sochna','Kotha alochanalu srushtinchadam']
+];
+function renderWords(){
+ document.getElementById('wordList').innerHTML=words.map((w,i)=>`<div class="card"><span class="tag">WORD ${i+1}</span><h3>${w[0]}</h3><p>Hinglish: ${w[1]}</p><p>Tenglish: ${w[2]}</p></div>`).join('');
+}
+</script>
+</body>
+</html>
